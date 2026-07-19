@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIDYANT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #050607;
+    --text-primary: #F5F7F6;
+    --text-secondary: #8E958F;
+    --accent: #00E676;
+    --accent-soft: rgba(0,230,118,0.14);
+    --line: rgba(255,255,255,0.10);
+    --line-accent: rgba(0,230,118,0.45);
+    --glass: rgba(255,255,255,0.04);
+    --glass-strong: rgba(255,255,255,0.07);
+    --ease: cubic-bezier(.16,1,.3,1);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html, body{ height:100%; }
+
+  body{
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding: 8vh 6vw;
+    text-align:center;
+    position:relative;
+    overflow-x:hidden;
+    isolation:isolate;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+  }
+
+  /* ============ Animated gradient background ============ */
+  .bg{
+    position:fixed;
+    inset:-10%;
+    z-index:-2;
+    background:
+      radial-gradient(38% 32% at 22% 20%, rgba(0,230,118,0.22), transparent 68%),
+      radial-gradient(34% 30% at 82% 26%, rgba(0,180,140,0.16), transparent 65%),
+      radial-gradient(46% 40% at 50% 88%, rgba(0,230,118,0.10), transparent 70%),
+      radial-gradient(70% 60% at 50% 50%, #0A0C0B, #050607 75%);
+    filter: blur(60px);
+    animation: drift 22s ease-in-out infinite;
+  }
+
+  @keyframes drift{
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(-2%, 2%) scale(1.05); }
+    66%  { transform: translate(2%, -1%) scale(1.02); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  .grain{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    opacity:0.03;
+    pointer-events:none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ============ Logo ============ */
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    margin-bottom:56px;
+    opacity:0;
+    animation: rise .8s var(--ease) forwards;
+  }
+
+  .logo__mark{
+    width:38px; height:38px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:11px;
+    background: linear-gradient(150deg, var(--accent), #00B369);
+    color:#04150C;
+    font-family:'Sora', sans-serif;
+    font-weight:700;
+    font-size:17px;
+    box-shadow: 0 0 26px rgba(0,230,118,0.4), 0 4px 14px rgba(0,0,0,0.4);
+  }
+
+  .logo__text{
+    font-family:'Sora', sans-serif;
+    font-weight:700;
+    font-size:19px;
+    letter-spacing:2px;
+  }
+
+  /* ============ Heading ============ */
+  h1{
+    font-family:'Sora', sans-serif;
+    font-size: clamp(2.1rem, 7.5vw, 3.6rem);
+    font-weight:800;
+    letter-spacing:-0.03em;
+    line-height:1.12;
+    max-width:680px;
+    opacity:0;
+    animation: rise .9s var(--ease) forwards .1s;
+  }
+
+  h1 span{
+    background: linear-gradient(120deg, var(--accent), #6FFFB0 60%, var(--accent));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow: 0 0 46px rgba(0,230,118,0.28);
+  }
+
+  .subtitle{
+    margin-top:18px;
+    font-size:16px;
+    font-weight:400;
+    color: var(--text-secondary);
+    max-width:420px;
+    opacity:0;
+    animation: rise .9s var(--ease) forwards .2s;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(16px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  /* ============ Card ============ */
+  .card{
+    margin-top:60px;
+    width:100%;
+    max-width:320px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:20px 22px;
+    border-radius:20px;
+    background: linear-gradient(180deg, var(--glass-strong), var(--glass));
+    border:1px solid var(--line);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.06) inset,
+      0 20px 50px -24px rgba(0,0,0,0.65);
+    cursor:pointer;
+    text-align:left;
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+    opacity:0;
+    animation: rise .9s var(--ease) forwards .32s;
+    transition: transform .5s var(--ease), border-color .45s var(--ease), box-shadow .5s var(--ease);
+  }
+
+  .card::before{
+    content:"";
+    position:absolute;
+    inset:-1px;
+    border-radius:inherit;
+    padding:1px;
+    background: conic-gradient(from var(--angle,0deg), transparent 0 70%, var(--accent) 85%, transparent 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity:0;
+    transition: opacity .5s var(--ease);
+    z-index:-1;
+    animation: spin 3.5s linear infinite paused;
+  }
+
+  @keyframes spin{ to{ --angle:360deg; } }
+  @property --angle{
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+
+  .card:hover, .card:focus-visible{
+    transform: translateY(-6px);
+    border-color: var(--line-accent);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.08) inset,
+      0 26px 60px -20px rgba(0,230,118,0.28);
+  }
+
+  .card:hover::before{
+    opacity:1;
+    animation-play-state: running;
+  }
+
+  .card:active{
+    transform: translateY(-2px) scale(0.975);
+  }
+
+  .card__logo{
+    flex-shrink:0;
+    width:46px; height:46px;
+    border-radius:13px;
+    display:flex; align-items:center; justify-content:center;
+    background:#1B1400;
+    color:#F5A623;
+    font-family:'Sora', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:0.5px;
+    border:1px solid rgba(255,255,255,0.07);
+  }
+
+  .card__title{
+    font-family:'Sora', sans-serif;
+    font-size:16px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  .card__arrow{
+    margin-left:auto;
+    width:15px; height:15px;
+    color: var(--text-secondary);
+    transition: color .35s var(--ease), transform .35s var(--ease);
+  }
+
+  .card:hover .card__arrow{
+    color: var(--accent);
+    transform: translateX(3px);
+  }
+
+  .ripple{
+    position:absolute;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(0,230,118,0.4), transparent 70%);
+    transform: scale(0);
+    animation: ripple-anim .7s var(--ease) forwards;
+    pointer-events:none;
+    z-index:-1;
+  }
+
+  @keyframes ripple-anim{
+    to{ transform: scale(1); opacity:0; }
+  }
+
+  /* ============ Responsive ============ */
+  @media (max-width:420px){
+    .logo{ margin-bottom:44px; }
+    .card{ margin-top:48px; padding:18px 19px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="logo">
+  <span class="logo__mark">V</span>
+  <span class="logo__text">VIDYANT</span>
+</div>
+
+<h1>Welcome to <span>VIDYANT</span></h1>
+<p class="subtitle">Your prep platforms, one clean home.</p>
+
+<div class="card" id="pwCard" role="link" tabindex="0" aria-label="Open Physics Wallah">
+  <div class="card__logo">PW</div>
+  <span class="card__title">Physics Wallah</span>
+  <svg class="card__arrow" viewBox="0 0 12 12" fill="none">
+    <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<script>
+  const card = document.getElementById('pwCard');
+
+  function spawnRipple(x, y){
+    const rect = card.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 1.8;
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (x - size / 2) + 'px';
+    ripple.style.top = (y - size / 2) + 'px';
+    card.appendChild(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove());
+  }
+
+  function goToPhysicsWallah(){
+    window.location.href = 'pw.html';
+  }
+
+  card.addEventListener('pointerdown', (e) => {
+    const rect = card.getBoundingClientRect();
+    spawnRipple(e.clientX - rect.left, e.clientY - rect.top);
+  });
+
+  card.addEventListener('click', goToPhysicsWallah);
+
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      goToPhysicsWallah();
+    }
+  });
+</script>
+
+</body>
+</html>
