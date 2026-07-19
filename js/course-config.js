@@ -6,6 +6,6 @@
 // file in the project should ever hardcode this link.
 // ============================================================
 
-const COURSE_LINK = "PASTE_COURSE_LINK_HERE";
+const COURSE_LINK = "https://studypanda.site/study/batches";
 
 export default COURSE_LINK;
