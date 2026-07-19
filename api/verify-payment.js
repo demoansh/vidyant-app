@@ -105,4 +105,3 @@ module.exports = async function verifyPayment(req, res) {
     });
   }
 };
-
