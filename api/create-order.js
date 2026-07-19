@@ -72,11 +72,14 @@ module.exports = async function createOrder(req, res) {
     });
 
     // ---- Return the Order ID (and a few useful fields) as JSON -------------
+    // key_id is Razorpay's *public* key — safe to expose to the client,
+    // since Checkout requires it to open. key_secret never leaves this file.
     return res.status(200).json({
       success: true,
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
+      keyId: keyId,
     });
   } catch (error) {
     // Log the full error server-side for debugging, but keep the
