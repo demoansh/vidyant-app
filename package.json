@@ -1,0 +1,9 @@
+{
+  "name": "vidyant",
+  "version": "1.0.0",
+  "description": "Vidyant website",
+  "main": "index.js",
+  "dependencies": {
+    "razorpay": "^2.9.6"
+  }
+}
