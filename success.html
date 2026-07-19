@@ -190,10 +190,16 @@
 
 <button class="access-btn" type="button" onclick="openCourse()">Access Course</button>
 
-<script>
-  function openCourse(){
+<script type="module">
+  import COURSE_LINK from './course-config.js';
 
+  function openCourse(){
+    window.location.href = COURSE_LINK;
   }
+
+  // Expose to the global scope so the button's onclick="openCourse()" works
+  // (module scripts don't leak their declarations to window by default).
+  window.openCourse = openCourse;
 </script>
 
 </body>
